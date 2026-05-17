@@ -1,6 +1,9 @@
+from tkinter import Scale
+
 import streamlit as st
 import numpy as np
 import joblib
+
 
 # ---------------- PAGE CONFIG ----------------
 st.set_page_config(
@@ -11,7 +14,7 @@ st.set_page_config(
 
 # ---------------- LOAD MODEL ----------------
 model = joblib.load("knn_model.pkl")
-
+scaler= joblib.load("scaler.pkl")
 # ---------------- STYLE ----------------
 st.markdown("""
 <style>
@@ -117,7 +120,7 @@ if st.button("Predict Tumor"):
         area_worst
     ]])
 
-    prediction = model.predict(features)
+    prediction = model.predict(scaler.transform(features))
 
     st.markdown("<br>", unsafe_allow_html=True)
 
